@@ -1,0 +1,531 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Pratyush Acharya // CPS</title>
+<meta name="description" content="Pratyush Acharya: B.Tech Cyber Physical Systems student at Manipal Institute of Technology. Embedded systems, CPS security, sensing and robotics. Research, projects, skills and resume." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" />
+<style>
+:root{--fg:#39ff7a;--dim:#1f9a4c;--glow:rgba(57,255,122,.55);--bg:#050806;--panel:#0a110c;--cy:#2ef2ff;--mg:#ff3df2;--bevel-l:#c7c7c7;--bevel-d:#3a3a3a;--chrome:#a8a8a8}
+html[data-theme=amber]{--fg:#ffb733;--dim:#a8711a;--glow:rgba(255,183,51,.55);--bg:#0a0703;--panel:#130e06}
+html[data-theme=cyan]{--fg:#4df3ff;--dim:#1f8f99;--glow:rgba(77,243,255,.55);--bg:#03080a;--panel:#061014}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;background:#000;color:var(--fg);font:22px/1.25 "VT323",monospace;overflow:hidden}
+a{color:var(--cy);text-shadow:0 0 6px rgba(46,242,255,.5)}
+a:hover,a:focus-visible{color:var(--mg);outline:none}
+:focus-visible{outline:2px dashed var(--mg);outline-offset:2px}
+.px{font-family:"Press Start 2P",monospace;font-size:11px;letter-spacing:.5px;line-height:1.6}
+/* CRT */
+.crt{position:fixed;inset:0;background:radial-gradient(ellipse at center,var(--panel) 0%,var(--bg) 75%);text-shadow:0 0 2px var(--fg),0 0 9px var(--glow);animation:flicker 6s infinite steps(1);overflow:hidden}
+.crt::before{content:"";position:absolute;inset:0;pointer-events:none;z-index:900;background:repeating-linear-gradient(to bottom,rgba(0,0,0,0) 0 2px,rgba(0,0,0,.28) 2px 3px)}
+.crt::after{content:"";position:absolute;inset:0;pointer-events:none;z-index:901;background:radial-gradient(ellipse at center,transparent 55%,rgba(0,0,0,.75) 100%);box-shadow:inset 0 0 90px rgba(0,0,0,.9)}
+@keyframes flicker{0%{opacity:1}12%{opacity:.965}13%{opacity:1}47%{opacity:.98}48%{opacity:1}81%{opacity:.97}82%{opacity:1}}
+html.nocrt .crt{animation:none;text-shadow:none;background:var(--bg)}
+html.nocrt .crt::before,html.nocrt .crt::after{display:none}
+html.nocrt .ab{text-shadow:none!important}
+/* chromatic headings + glitch */
+.ab{position:relative;display:inline-block;text-shadow:-1.5px 0 rgba(255,61,242,.7),1.5px 0 rgba(46,242,255,.7),0 0 8px var(--glow)}
+.ab::before,.ab::after{content:attr(data-t);position:absolute;left:0;top:0;width:100%;opacity:0;pointer-events:none}
+.ab:hover::before{opacity:.85;color:var(--mg);animation:g1 .35s steps(2) infinite}
+.ab:hover::after{opacity:.85;color:var(--cy);animation:g2 .3s steps(2) infinite}
+@keyframes g1{0%{clip-path:inset(0 0 60% 0);transform:translate(-3px,-1px)}50%{clip-path:inset(40% 0 20% 0);transform:translate(3px,1px)}100%{clip-path:inset(70% 0 0 0);transform:translate(-2px,0)}}
+@keyframes g2{0%{clip-path:inset(55% 0 10% 0);transform:translate(3px,1px)}50%{clip-path:inset(0 0 70% 0);transform:translate(-3px,0)}100%{clip-path:inset(20% 0 45% 0);transform:translate(2px,-1px)}}
+.cur{display:inline-block;width:.55em;height:1em;background:var(--fg);vertical-align:-2px;margin-left:2px;animation:blink 1s steps(1) infinite;box-shadow:0 0 8px var(--glow)}
+@keyframes blink{50%{opacity:0}}
+/* boot */
+#boot{position:absolute;inset:0;z-index:800;background:var(--bg);padding:28px 32px;transition:opacity .6s}
+#boot.out{opacity:0;pointer-events:none}
+#boot pre{margin:0;font:inherit;white-space:pre-wrap}
+#boot .skip{position:absolute;right:24px;bottom:20px;color:var(--dim)}
+/* marquee */
+.ticker{position:absolute;top:0;left:0;right:0;height:30px;border-bottom:1px solid var(--dim);background:rgba(0,0,0,.55);overflow:hidden;white-space:nowrap;z-index:5}
+.ticker span{display:inline-block;padding-left:100%;animation:mq 38s linear infinite;line-height:30px}
+.ticker b{color:var(--mg);font-weight:normal}
+@keyframes mq{to{transform:translateX(-100%)}}
+/* desktop */
+#desk{position:absolute;top:30px;left:0;right:0;bottom:44px}
+.banner{position:absolute;right:28px;bottom:16px;margin:0;font:12px/1 monospace;color:var(--dim);opacity:.8;white-space:pre;pointer-events:none;text-shadow:0 0 6px var(--glow)}
+.icons{position:absolute;top:14px;left:14px;display:grid;gap:10px;z-index:2}
+.icon{all:unset;cursor:pointer;width:96px;padding:6px 4px;text-align:center;font-size:20px;color:var(--fg);border:1px dashed transparent}
+.icon:hover,.icon:focus-visible{border-color:var(--fg);background:rgba(255,255,255,.04)}
+.icon i{display:block;font-style:normal;font-family:"Press Start 2P",monospace;font-size:18px;margin:0 auto 6px;width:44px;height:40px;line-height:40px;border:2px solid var(--fg);box-shadow:3px 3px 0 var(--mg),0 0 10px var(--glow)}
+/* win98 chrome */
+.win{position:absolute;display:none;flex-direction:column;width:min(620px,62vw);max-height:calc(100% - 20px);background:var(--chrome);padding:3px;border:2px solid;border-color:var(--bevel-l) var(--bevel-d) var(--bevel-d) var(--bevel-l);box-shadow:1px 1px 0 #000,0 0 22px rgba(0,0,0,.6)}
+.win.open{display:flex}
+.tb{display:flex;align-items:center;gap:8px;padding:4px 4px 4px 8px;background:#000080 linear-gradient(90deg,#000080,#0b5fa8);color:#fff;cursor:move;user-select:none;touch-action:none;text-shadow:none}
+.win:not(.top) .tb{background:#555}
+.tb .px{flex:1;font-size:12px}
+.x{all:unset;cursor:pointer;width:22px;height:20px;background:var(--chrome);color:#000;text-align:center;font:bold 16px/18px monospace;border:2px solid;border-color:#fff #404040 #404040 #fff;text-shadow:none}
+.x:active{border-color:#404040 #fff #fff #404040}
+.body{margin-top:3px;flex:1;overflow:auto;background:var(--bg);padding:14px 18px;border:2px solid;border-color:var(--bevel-d) var(--bevel-l) var(--bevel-l) var(--bevel-d);scrollbar-color:var(--dim) #000}
+.body h2{font:14px/1.6 "Press Start 2P",monospace;margin:0 0 12px;color:var(--fg)}
+.body h3{font:12px/1.7 "Press Start 2P",monospace;margin:0 0 6px;color:var(--cy)}
+.body p{margin:0 0 10px}
+.body ul{margin:0 0 10px;padding-left:22px}
+.k{color:var(--dim)}
+.tag{display:inline-block;font:12px/1 "Press Start 2P",monospace;padding:5px 6px;border:1px solid var(--mg);color:var(--mg);margin-right:6px;text-shadow:0 0 6px rgba(255,61,242,.6)}
+.card{border:1px solid var(--dim);padding:12px 14px;margin:0 0 14px;position:relative;background:var(--bg)}
+.card .lk{display:flex;gap:16px;flex-wrap:wrap}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 6px}
+.chips span{border:1px solid var(--fg);padding:1px 10px;box-shadow:2px 2px 0 var(--dim)}
+.tree{margin:0 0 12px;padding:0;list-style:none}
+.tree>li>ul{list-style:none;padding-left:26px;margin:4px 0 8px}
+.tree>li>ul li::before{content:"├─ ";color:var(--dim)}
+.tree>li>ul li:last-child::before{content:"└─ "}
+.btn98{display:inline-block;background:var(--chrome);color:#000!important;text-shadow:none;text-decoration:none;padding:6px 14px;border:2px solid;border-color:#fff #404040 #404040 #fff;font:12px/1.4 "Press Start 2P",monospace;cursor:pointer}
+.btn98:active{border-color:#404040 #fff #fff #404040}
+.compass{position:absolute;top:10px;right:12px;width:44px;height:44px;border:2px solid var(--fg);border-radius:50%;box-shadow:0 0 10px var(--glow)}
+.compass::before{content:"";position:absolute;left:50%;top:4px;bottom:4px;width:4px;margin-left:-2px;background:linear-gradient(var(--mg) 50%,var(--fg) 50%);clip-path:polygon(50% 0,100% 50%,50% 100%,0 50%);animation:spin 5s cubic-bezier(.5,.1,.3,1.4) infinite}
+@keyframes spin{0%{transform:rotate(0)}30%{transform:rotate(200deg)}55%{transform:rotate(150deg)}100%{transform:rotate(360deg)}}
+/* terminal */
+#term .body{display:flex;flex-direction:column;cursor:text}
+#out{white-space:pre-wrap;word-break:break-word}
+.prompt{display:flex;align-items:center;gap:8px}
+.prompt label{color:var(--cy);white-space:nowrap}
+#cmd{flex:1;background:transparent;border:0;color:var(--fg);font:inherit;caret-color:var(--fg);outline:none;text-shadow:inherit;min-width:0}
+/* taskbar */
+.task{position:absolute;left:0;right:0;bottom:0;height:44px;display:flex;align-items:center;gap:6px;padding:3px 4px;background:var(--chrome);border-top:2px solid #fff;z-index:700;text-shadow:none;color:#000}
+.task .btn98{height:36px;display:flex;align-items:center;gap:6px}
+#start{font-weight:bold}
+.task .sp{flex:1}
+.clock{height:36px;display:flex;align-items:center;padding:0 12px;border:2px solid;border-color:#404040 #fff #fff #404040;font-size:22px}
+.crttog{height:36px}
+#menu{position:absolute;left:4px;bottom:46px;z-index:710;display:none;width:250px;background:var(--chrome);border:2px solid;border-color:#fff #404040 #404040 #fff;color:#000;text-shadow:none;padding-left:30px}
+#menu.open{display:block}
+#menu::before{content:"PRATYUSH-OS";position:absolute;left:0;top:0;bottom:0;width:28px;background:linear-gradient(#000080,#1084d0);color:#fff;writing-mode:vertical-rl;transform:rotate(180deg);font:12px "Press Start 2P",monospace;padding:8px 0;text-align:right}
+#menu button,#menu a{all:unset;display:block;padding:7px 12px;cursor:pointer;color:#000;font-size:21px}
+#menu button:hover,#menu a:hover,#menu button:focus-visible,#menu a:focus-visible{background:#000080;color:#fff}
+#menu hr{border:0;border-top:1px solid #808080;border-bottom:1px solid #fff;margin:3px 6px}
+.mtop{display:none}
+/* phone */
+@media (max-width:759px){
+ html,body{overflow:auto;height:auto}
+ .crt{position:relative;min-height:100vh;overflow:visible}
+ .crt::before,.crt::after{position:fixed}
+ .icons,.task,#menu,.banner,.x{display:none!important}
+ .ticker{position:relative}
+ #desk{position:static;padding:10px 10px 30px}
+ .mtop{display:flex;position:sticky;top:0;z-index:20;gap:6px;flex-wrap:wrap;align-items:center;padding:6px 8px;background:var(--chrome);border-bottom:2px solid #404040;text-shadow:none}
+ .mtop .btn98{padding:0 8px;font-size:12px;min-height:44px;display:inline-flex;align-items:center}
+ .body a,.body .btn98{min-height:44px;display:inline-flex;align-items:center}
+ .mascii{overflow-x:auto!important}
+ .mtop .crttog{margin-left:auto}
+ .mascii{display:block!important}
+ .win{position:static!important;display:flex!important;width:auto!important;max-height:none;margin:0 0 14px}
+ .win .tb{cursor:default;background:#000080!important}
+ #term .body{min-height:260px}
+}
+.mascii{display:none;margin:6px 0 12px;font:12px/1 monospace;white-space:pre;overflow:hidden;color:var(--fg)}
+/* fx canvases */
+.x-fx{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;display:block}
+#bootFx{z-index:0}
+#boot pre,#boot .cur,#boot .skip{position:relative;z-index:1}
+#boot .skip{position:absolute}
+#deskFx{z-index:0}
+/* user profile card */
+.x-about{display:grid;grid-template-columns:196px minmax(0,1fr);gap:18px;align-items:start}
+.x-id{margin:0;border:2px solid var(--fg);background:#000;box-shadow:0 0 14px var(--glow),3px 3px 0 var(--mg)}
+.x-id__bar{display:flex;justify-content:space-between;align-items:center;padding:2px 6px;background:var(--fg);color:var(--bg);text-shadow:none;font-size:18px;line-height:1.1}
+.x-ph{position:relative;margin:6px;background:var(--fg);isolation:isolate;overflow:hidden;box-shadow:0 0 16px var(--glow);animation:x-flk 5s infinite steps(1)}
+.x-ph img{display:block;width:100%;height:auto;mix-blend-mode:multiply;filter:contrast(1.15) brightness(1.05)}
+.x-ph::before{content:"";position:absolute;inset:0;z-index:2;pointer-events:none;background:repeating-linear-gradient(to bottom,transparent 0 2px,rgba(0,0,0,.22) 2px 3px),radial-gradient(ellipse at center,transparent 55%,rgba(0,0,0,.55) 100%)}
+.x-ph::after{content:"";position:absolute;left:0;right:0;top:0;height:28%;z-index:3;pointer-events:none;background:linear-gradient(transparent,rgba(255,255,255,.16),transparent);mix-blend-mode:screen;animation:x-sweep 4.5s linear infinite}
+.x-ph.glitch{filter:url(#x-rgb) brightness(1.15);animation:x-jit .45s steps(1) 1}
+.x-ph.glitch img{animation:x-slice .45s steps(1) 1}
+@keyframes x-sweep{0%{transform:translateY(-110%)}100%{transform:translateY(420%)}}
+@keyframes x-flk{0%{opacity:1}31%{opacity:.9}32%{opacity:1}67%{opacity:.94}68%{opacity:1}}
+@keyframes x-jit{0%{transform:translate(-3px,1px)}25%{transform:translate(3px,-1px)}50%{transform:translate(-2px,0)}75%{transform:translate(2px,1px)}100%{transform:none}}
+@keyframes x-slice{0%{clip-path:inset(12% 0 60% 0);transform:translateX(6px)}20%{clip-path:inset(55% 0 18% 0);transform:translateX(-7px)}40%{clip-path:inset(30% 0 40% 0);transform:translateX(4px)}60%{clip-path:none;transform:translateX(-2px)}100%{clip-path:none;transform:none}}
+.x-id__meta{margin:0;padding:0 8px 6px;font-size:18px;line-height:1.2}
+.x-id__meta b{font-weight:normal;color:var(--cy)}
+html.nocrt .x-ph{animation:none;box-shadow:none}
+html.nocrt .x-ph::after{display:none}
+@media (max-width:759px){
+ .x-about{grid-template-columns:minmax(0,1fr)}
+ .x-id{width:min(240px,100%);margin:0 auto}
+ #deskFx{display:none}
+}
+@media (prefers-reduced-motion:reduce){
+ .x-ph,.x-ph::after,.x-ph.glitch,.x-ph.glitch img{animation:none!important}
+ .x-ph.glitch{filter:none}
+}
+@media (prefers-reduced-motion:reduce){
+ .crt,.cur,.compass::before,.ab:hover::before,.ab:hover::after{animation:none!important}
+ .ab:hover::before,.ab:hover::after{opacity:0}
+ .ticker span{animation:none;padding-left:12px}
+ #boot{transition:none}
+}
+</style>
+</head>
+<body>
+<div class="crt" id="crt">
+ <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><filter id="x-rgb" x="-5%" y="0" width="110%" height="100%" color-interpolation-filters="sRGB"><feColorMatrix in="SourceGraphic" type="matrix" values=".3 .6 .1 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 1 0" result="r"/><feOffset in="r" dx="-5" dy="0" result="r2"/><feColorMatrix in="SourceGraphic" type="matrix" values="0 0 0 0 0  0 0 0 0 0  .3 .6 .1 0 0  0 0 0 1 0" result="b"/><feOffset in="b" dx="5" dy="0" result="b2"/><feBlend in="SourceGraphic" in2="r2" mode="screen" result="rg"/><feBlend in="rg" in2="b2" mode="screen"/></filter></svg>
+ <div id="boot" aria-live="polite"><canvas class="x-fx" id="bootFx" aria-hidden="true"></canvas><pre id="bootTxt"></pre><span class="cur"></span><span class="skip">[ press any key or tap to skip ]</span></div>
+
+ <nav class="mtop" aria-label="Links">
+  <a class="btn98" href="https://github.com/gininipushes" target="_blank" rel="noopener">GitHub</a>
+  <a class="btn98" href="https://www.linkedin.com/in/pratyushacharya1/" target="_blank" rel="noopener">LinkedIn</a>
+  <a class="btn98" href="resume.pdf" target="_blank" rel="noopener">Resume</a>
+  <a class="btn98" href="mailto:pratyushacharya186@gmail.com">Email</a>
+  <button class="btn98 crttog" type="button">CRT:ON</button>
+ </nav>
+
+ <div class="ticker" aria-hidden="true"><span>*** PRATYUSH-OS v2.0 *** <b>OPEN TO INTERNSHIPS, RESEARCH ASSISTANT &amp; RESEARCH INTERN ROLES</b> *** B.Tech Cyber Physical Systems @ MIT Manipal *** embedded systems // CPS security // sensing // robotics *** 2 manuscripts in progress: UAV battery FDI detection + PM2.5 sensor watermarking *** Kociemba solver: &le;20 moves, median 54 ms *** codeforces: ginini *** type `help` in TERMINAL.EXE ***</span></div>
+
+ <main id="desk">
+  <canvas class="x-fx" id="deskFx" aria-hidden="true"></canvas>
+  <pre class="banner" aria-hidden="true">████████   ████████     ██████   ██████████ ██      ██ ██      ██   ████████ ██      ██
+██      ██ ██      ██ ██      ██     ██       ██  ██   ██      ██ ██         ██      ██
+████████   ████████   ██████████     ██         ██     ██      ██   ██████   ██████████
+██         ██    ██   ██      ██     ██         ██     ██      ██         ██ ██      ██
+██         ██      ██ ██      ██     ██         ██       ██████   ████████   ██      ██</pre>
+
+  <div class="icons">
+   <button class="icon" data-open="about"><i>?</i>About</button>
+   <button class="icon" data-open="research"><i>Σ</i>Research</button>
+   <button class="icon" data-open="projects"><i>#</i>Projects</button>
+   <button class="icon" data-open="skills"><i>⚙</i>Skills</button>
+   <button class="icon" data-open="term"><i>&gt;_</i>Terminal</button>
+   <button class="icon" data-open="resume"><i>¶</i>Resume</button>
+  </div>
+
+  <section class="win" id="about" style="left:140px;top:20px;width:min(720px,calc(100vw - 160px))" aria-labelledby="h-about">
+   <div class="tb"><span class="px">ABOUT.TXT</span><button class="x" aria-label="Close">×</button></div>
+   <div class="body">
+    <div class="x-about">
+    <figure class="x-id">
+     <div class="x-id__bar"><span>USER PROFILE.EXE</span><span aria-hidden="true">■</span></div>
+     <div class="x-ph" id="xPh"><img src="me_crt.png" alt="Pratyush Acharya" width="480" height="524" /></div>
+     <figcaption class="x-id__meta"><span class="k">USR</span> <b>P.ACHARYA</b><br><span class="k">NODE</span> <b>MIT MANIPAL</b><br><span class="k">STATUS</span> ONLINE<span class="cur"></span></figcaption>
+    </figure>
+    <div>
+    <pre class="mascii" aria-hidden="true">████  ████   ███  █████
+█   █ █   █ █   █   █
+████  ████  █████   █
+█     █  █  █   █   █
+█     █   █ █   █   █
+
+█   █ █   █  ████ █   █
+ █ █  █   █ █     █   █
+  █   █   █  ███  █████
+  █   █   █     █ █   █
+  █    ███  ████  █   █</pre>
+    <h2 id="h-about"><span class="ab" data-t="PRATYUSH ACHARYA">PRATYUSH ACHARYA</span></h2>
+    <p><span class="k">&gt; degree ....</span> B.Tech, Cyber Physical Systems<br><span class="k">&gt; school ....</span> School of Electrical Engineering, Manipal Institute of Technology (MAHE), Manipal, India<br><span class="k">&gt; dates .....</span> Jul 2025 to Jul 2029 (expected)</p>
+    <p>Into embedded systems, CPS security, sensing and robotics. <span class="tag">OPEN</span>to internships, as well as research assistant and research intern roles.</p>
+    <ul>
+     <li>Class Representative, School of Electrical Engineering <span class="k">(since Aug 2026)</span></li>
+     <li>Hostel Block Representative <span class="k">(since Sep 2026)</span></li>
+     <li>Codeforces: <span style="color:var(--cy)">ginini</span></li>
+     <li>Off the clock: photography and videography</li>
+    </ul>
+    <p><a href="mailto:pratyushacharya186@gmail.com">pratyushacharya186@gmail.com</a><span class="cur"></span></p>
+    </div>
+    </div>
+   </div>
+  </section>
+
+  <section class="win" id="research" style="left:200px;top:50px" aria-labelledby="h-res">
+   <div class="tb"><span class="px">RESEARCH.DOC</span><button class="x" aria-label="Close">×</button></div>
+   <div class="body">
+    <h2 id="h-res"><span class="ab" data-t="RESEARCH">RESEARCH</span></h2>
+    <div class="card">
+     <p><span class="tag">MANUSCRIPT</span></p>
+     <h3>Stealthy False-Data Injection on UAV Battery Sensing and a Powertrain-Consistency Detector for Medical Delivery Drones</h3>
+     <p class="k">P. Acharya and Srinivas G.</p>
+     <p>Shows when model-consistent "virtual battery" attacks are undetectable from battery telemetry alone, and proposes a powertrain-consistency detector using ESC duty cycles and rotor speeds with a two-channel CUSUM.</p>
+     <p>&gt; 2,500 simulated missions per condition: caught <b style="color:var(--cy)">every</b> phantom and hidden-drain attack (median 3.0 s and 5.5 s) at a <b style="color:var(--cy)">0.34%</b> false-alarm rate.</p>
+    </div>
+    <div class="card">
+     <p><span class="tag">MANUSCRIPT</span></p>
+     <h3>Bilinear Actuation Watermarking: Authenticating Low-Cost PM2.5 Sensors in Smart Air Purifiers with a Secret Fan-Speed Challenge</h3>
+     <p class="k">P. Acharya (sole author)</p>
+     <p>A secret randomised fan-speed challenge whose log-slope test is invariant to sensor gain, with CUSUM and GLRT timing tests.</p>
+     <p>&gt; 1,000 simulated rooms per condition: detected <b style="color:var(--cy)">90 to 93%</b> of replay attacks within 6 h and <b style="color:var(--cy)">all</b> stuck-at attacks, for about 1.0 W and 1.5 dB(A).</p>
+    </div>
+   </div>
+  </section>
+
+  <section class="win" id="projects" style="left:260px;top:80px" aria-labelledby="h-proj">
+   <div class="tb"><span class="px">PROJECTS.EXE</span><button class="x" aria-label="Close">×</button></div>
+   <div class="body">
+    <h2 id="h-proj"><span class="ab" data-t="PROJECTS">PROJECTS</span></h2>
+    <div class="card">
+     <h3>Rubik's Cube Solver</h3>
+     <p class="k">C++ · WebAssembly</p>
+     <p>Kociemba two-phase solver written from scratch: 20 moves or fewer, median 54 ms. Runs in the browser via WASM with a 3D cube.</p>
+     <p class="lk"><a href="https://github.com/gininipushes/Rubiks-cube-solver" target="_blank" rel="noopener">[repo]</a><a href="https://gininipushes.github.io/Rubiks-cube-solver/" target="_blank" rel="noopener">[live demo]</a></p>
+    </div>
+    <div class="card">
+     <span class="compass" aria-hidden="true"></span>
+     <h3>Which Way?</h3>
+     <p class="k">Java · Android</p>
+     <p style="padding-right:50px">Fully offline compass to the nearest places around campus, using GPS, the rotation-vector sensor and bundled OpenStreetMap data. Friends share pins over a Bluetooth LE gossip mesh. ~50 KB APK, no internet permission.</p>
+     <p class="lk"><a href="https://github.com/gininipushes/which-way" target="_blank" rel="noopener">[repo]</a></p>
+    </div>
+    <div class="card">
+     <h3>PuriSwitch: Smart Air Purifier Switch</h3>
+     <p class="k">ESP32 · team of 3</p>
+     <p>Smoke, DHT11 and MQ7 sensing with an ESP32 soft-AP web dashboard.</p>
+    </div>
+    <div class="card">
+     <h3>Contactless Water Level Sensor</h3>
+     <p class="k">ESP32 · C++</p>
+     <p>Reads water level through a non-conductive wall with the ESP32's capacitive touch pins, with a live Wi-Fi web view.</p>
+     <p class="lk"><a href="https://github.com/gininipushes/contactless-water-level-sensor" target="_blank" rel="noopener">[repo]</a></p>
+    </div>
+   </div>
+  </section>
+
+  <section class="win" id="skills" style="left:320px;top:40px" aria-labelledby="h-sk">
+   <div class="tb"><span class="px">DEVICE MANAGER</span><button class="x" aria-label="Close">×</button></div>
+   <div class="body">
+    <h2 id="h-sk"><span class="ab" data-t="SKILLS">SKILLS</span></h2>
+    <ul class="tree">
+     <li>[-] Languages<ul><li>C</li><li>C++</li><li>Java</li><li>Python</li></ul></li>
+     <li>[-] Hardware<ul><li>ESP32</li><li>Microcontrollers</li><li>Sensors</li><li>PCB design (KiCAD, Proteus)</li></ul></li>
+     <li>[-] Robotics &amp; modelling<ul><li>ROS</li><li>ArduPilot</li><li>MATLAB</li><li>Simulink</li></ul></li>
+     <li>[-] Tools &amp; platforms<ul><li>Linux</li><li>Git</li><li>Tinkercad</li><li>WebAssembly</li><li>Android</li></ul></li>
+    </ul>
+    <h2><span class="ab" data-t="CERTIFICATIONS">CERTIFICATIONS</span></h2>
+    <ul>
+     <li>ROS Workshop, IE Mechatronics Students' Chapter, Manipal <span class="k">(Apr 2026)</span></li>
+     <li>MATLAB Onramp, MathWorks</li>
+    </ul>
+   </div>
+  </section>
+
+  <section class="win" id="resume" style="left:380px;top:110px;width:min(440px,60vw)" aria-labelledby="h-cv">
+   <div class="tb"><span class="px">RESUME.PDF</span><button class="x" aria-label="Close">×</button></div>
+   <div class="body">
+    <h2 id="h-cv"><span class="ab" data-t="RESUME">RESUME</span></h2>
+    <p>C:\PRATYUSH\resume.pdf <span class="k">... found</span></p>
+    <p style="display:flex;gap:10px;flex-wrap:wrap"><a class="btn98" href="resume.pdf" target="_blank" rel="noopener">Open resume.pdf</a><a class="btn98" href="mailto:pratyushacharya186@gmail.com">Email me</a></p>
+   </div>
+  </section>
+
+  <section class="win" id="term" style="left:180px;top:150px" aria-label="Terminal">
+   <div class="tb"><span class="px">TERMINAL.EXE</span><button class="x" aria-label="Close">×</button></div>
+   <div class="body">
+    <div id="out" aria-live="polite">PRATYUSH-OS v2.0 (c) 2026
+Type `help` for a list of commands.
+</div>
+    <div class="prompt"><label for="cmd">guest@pratyush:~$</label><input id="cmd" autocomplete="off" spellcheck="false" autocapitalize="off" /></div>
+   </div>
+  </section>
+ </main>
+
+ <div id="menu" role="menu">
+  <button data-open="about">About</button>
+  <button data-open="research">Research</button>
+  <button data-open="projects">Projects</button>
+  <button data-open="skills">Skills</button>
+  <button data-open="term">Terminal</button>
+  <button data-open="resume">Resume</button>
+  <hr>
+  <a href="mailto:pratyushacharya186@gmail.com">Email</a>
+  <button id="reboot">Reboot…</button>
+ </div>
+ <div class="task">
+  <button class="btn98" id="start" type="button" aria-expanded="false" aria-controls="menu">▣ Start</button>
+  <a class="btn98" href="https://github.com/gininipushes" target="_blank" rel="noopener">GitHub</a>
+  <a class="btn98" href="https://www.linkedin.com/in/pratyushacharya1/" target="_blank" rel="noopener">LinkedIn</a>
+  <a class="btn98" href="resume.pdf" target="_blank" rel="noopener">Resume</a>
+  <span class="sp"></span>
+  <button class="btn98 crttog" type="button">CRT:ON</button>
+  <span class="clock" id="clock">--:--</span>
+ </div>
+</div>
+
+<script>
+(function(){
+var d=document,root=d.documentElement,RM=matchMedia("(prefers-reduced-motion: reduce)").matches;
+function store(k,v){try{if(v===undefined)return sessionStorage.getItem(k);sessionStorage.setItem(k,v)}catch(e){return null}}
+function $(s){return d.querySelector(s)}
+
+/* boot */
+var boot=$("#boot"),bt=$("#bootTxt"),done=false,timers=[];
+var lines=["PRATYUSH-OS v2.0 (c) 2026","BIOS POST ........................ ok","CPU: CYBER-PHYSICAL x86 @ 4.77 MHz","Memory test: 640K ok","loading KOCIEMBA.DLL... ok","loading ESP32.SYS... ok","loading CUSUM.VXD... ok","mounting C:\\PRATYUSH ... ok","starting desktop..."];
+function cssv(n,f){return (getComputedStyle(root).getPropertyValue(n)||f).trim()||f}
+function rgba(h,a){h=h.replace("#","");if(h.length===3)h=h.replace(/./g,"$&$&");var n=parseInt(h,16);return "rgba("+(n>>16&255)+","+(n>>8&255)+","+(n&255)+","+a+")"}
+function rot(p,ax,ay){var x=p[0],y=p[1],z=p[2],c=Math.cos(ay),s=Math.sin(ay),x1=x*c+z*s,z1=-x*s+z*c;c=Math.cos(ax);s=Math.sin(ax);return [x1,y*c-z1*s,y*s+z1*c]}
+
+/* boot fx: phosphor particles, glyph rain, wireframe cube */
+var stopBootFx=function(){};
+function bootFx(){
+ var cv=$("#bootFx"),cx=cv&&cv.getContext("2d");if(!cx)return;
+ var W,H,dpr=Math.min(devicePixelRatio||1,1.5),P=[],cols=[],raf=0,ang=0,col,bgc,fade;
+ var G="01<>/\\=+*#$%&ABCDEF0123456789アイウエオカキクケコサシスセソ";
+ function theme(){col=cssv("--fg","#39ff7a");bgc=cssv("--bg","#050806");fade=rgba(bgc,.13)}
+ function size(){W=boot.clientWidth||innerWidth;H=boot.clientHeight||innerHeight;cv.width=W*dpr;cv.height=H*dpr;cx.setTransform(dpr,0,0,dpr,0,0);cx.fillStyle=bgc;cx.fillRect(0,0,W,H)}
+ theme();size();
+ var N=Math.max(140,Math.min(380,Math.round(W*H/3800)));
+ for(var i=0;i<N;i++)P.push({x:Math.random()*W,y:Math.random()*H,vx:(Math.random()-.5)*.7,vy:(Math.random()-.5)*.7-.15,plus:Math.random()<.18,a:.35+Math.random()*.65});
+ var V=[[-1,-1,-1],[1,-1,-1],[1,1,-1],[-1,1,-1],[-1,-1,1],[1,-1,1],[1,1,1],[-1,1,1]],E=[[0,1],[1,2],[2,3],[3,0],[4,5],[5,6],[6,7],[7,4],[0,4],[1,5],[2,6],[3,7]];
+ function cube(cxp,cyp,sz,ax,ay,a){var q=V.map(function(v){var r=rot(v,ax,ay),k=3.2/(3.2+r[2]);return [cxp+r[0]*sz*k,cyp+r[1]*sz*k]});cx.globalAlpha=a;cx.beginPath();E.forEach(function(e){cx.moveTo(q[e[0]][0],q[e[0]][1]);cx.lineTo(q[e[1]][0],q[e[1]][1])});cx.stroke();cx.fillStyle=col;q.forEach(function(p){cx.fillRect(p[0]-1.5,p[1]-1.5,3,3)})}
+ function frame(){
+  raf=requestAnimationFrame(frame);ang+=.012;
+  cx.globalAlpha=1;cx.fillStyle=fade;cx.fillRect(0,0,W,H);
+  cx.strokeStyle=col;cx.lineWidth=.6;
+  var D=78,D2=D*D,b=[[],[],[]],links=0;
+  for(var i=0;i<P.length;i++){var p=P[i];p.x+=p.vx;p.y+=p.vy;if(p.x<-5)p.x=W+5;else if(p.x>W+5)p.x=-5;if(p.y<-5)p.y=H+5;else if(p.y>H+5)p.y=-5}
+  for(i=0;i<P.length&&links<700;i++){var a=P[i];for(var j=i+1;j<P.length;j++){var q=P[j],dx=a.x-q.x;if(dx>D||dx<-D)continue;var dy=a.y-q.y;if(dy>D||dy<-D)continue;var dd=dx*dx+dy*dy;if(dd<D2){b[dd<D2*.25?2:dd<D2*.55?1:0].push(a.x,a.y,q.x,q.y);links++}}}
+  [.05,.1,.18].forEach(function(al,k){var s=b[k];if(!s.length)return;cx.globalAlpha=al;cx.beginPath();for(var m=0;m<s.length;m+=4){cx.moveTo(s[m],s[m+1]);cx.lineTo(s[m+2],s[m+3])}cx.stroke()});
+  cx.fillStyle=col;
+  for(i=0;i<P.length;i++){p=P[i];cx.globalAlpha=p.a;if(p.plus){cx.fillRect(p.x-3,p.y-.6,6,1.2);cx.fillRect(p.x-.6,p.y-3,1.2,6)}else cx.fillRect(p.x-1,p.y-1,2,2)}
+  if(Math.random()<.05&&cols.length<16)cols.push({x:Math.floor(Math.random()*W/18)*18,y:-18,v:2+Math.random()*3,c:-1});
+  cx.font="18px VT323, monospace";cx.textBaseline="top";
+  cols=cols.filter(function(c){c.y+=c.v;var cell=Math.floor(c.y/18);if(cell!==c.c){c.c=cell;cx.globalAlpha=.85;cx.fillText(G.charAt(Math.random()*G.length|0),c.x,cell*18)}return c.y<H+20});
+  var sz=Math.max(22,Math.min(58,Math.min(W,H)*.07)),ox=W-sz*2.2,oy=sz*2.2;
+  cx.lineWidth=1;cube(ox,oy,sz,ang*.7,ang,.7);cube(ox,oy,sz*.5,-ang,ang*1.3,.45);
+ }
+ var mo=new MutationObserver(theme);mo.observe(root,{attributes:true,attributeFilter:["data-theme"]});
+ addEventListener("resize",size);
+ raf=requestAnimationFrame(frame);
+ stopBootFx=function(){cancelAnimationFrame(raf);removeEventListener("resize",size);mo.disconnect()};
+}
+function endBoot(){if(done)return;done=true;timers.forEach(clearTimeout);store("booted","1");boot.classList.add("out");setTimeout(function(){boot.style.display="none";stopBootFx()},RM?0:600);d.removeEventListener("keydown",endBoot);boot.removeEventListener("click",endBoot)}
+if(store("booted")||RM){boot.style.display="none";done=true}
+else{bootFx();var t=0;lines.forEach(function(l){timers.push(setTimeout(function(){bt.textContent+=l+"\n"},t));t+=320});timers.push(setTimeout(endBoot,t+300));d.addEventListener("keydown",endBoot);boot.addEventListener("click",endBoot)}
+
+/* CRT toggle */
+var tg=d.querySelectorAll(".crttog");
+function setCrt(on){root.classList.toggle("nocrt",!on);tg.forEach(function(b){b.textContent="CRT:"+(on?"ON":"OFF");b.setAttribute("aria-pressed",on)});try{localStorage.setItem("crt",on?"1":"0")}catch(e){}}
+var crtPref=null;try{crtPref=localStorage.getItem("crt")}catch(e){}
+setCrt(crtPref?crtPref==="1":true);
+tg.forEach(function(b){b.onclick=function(){setCrt(root.classList.contains("nocrt"))}});
+
+/* windows */
+var z=10,phone=matchMedia("(max-width:759px)");
+function focusWin(w){d.querySelectorAll(".win.top").forEach(function(x){x.classList.remove("top")});w.classList.add("top");w.style.zIndex=++z}
+function openWin(id){var w=d.getElementById(id);if(!w)return;w.classList.add("open");if(phone.matches){w.scrollIntoView({behavior:RM?"auto":"smooth"});return}focusWin(w);if(id==="term")setTimeout(function(){$("#cmd").focus()},0)}
+d.querySelectorAll("[data-open]").forEach(function(b){b.onclick=function(){openWin(b.dataset.open);menu(false)}});
+d.querySelectorAll(".win").forEach(function(w){
+ w.addEventListener("pointerdown",function(){if(!phone.matches)focusWin(w)});
+ w.querySelector(".x").onclick=function(e){e.stopPropagation();w.classList.remove("open")};
+ var tb=w.querySelector(".tb");
+ tb.addEventListener("pointerdown",function(e){if(phone.matches||e.target.closest(".x"))return;var desk=$("#desk").getBoundingClientRect(),sx=e.clientX-w.offsetLeft,sy=e.clientY-w.offsetTop;tb.setPointerCapture(e.pointerId);
+  function mv(ev){var x=Math.max(-w.offsetWidth+80,Math.min(desk.width-80,ev.clientX-sx)),y=Math.max(0,Math.min(desk.height-30,ev.clientY-sy));w.style.left=x+"px";w.style.top=y+"px"}
+  function up(){tb.removeEventListener("pointermove",mv);tb.removeEventListener("pointerup",up)}
+  tb.addEventListener("pointermove",mv);tb.addEventListener("pointerup",up)});
+});
+openWin("about");
+
+/* start menu */
+var mEl=$("#menu"),st=$("#start");
+function menu(o){mEl.classList.toggle("open",o);st.setAttribute("aria-expanded",o)}
+st.onclick=function(e){e.stopPropagation();menu(!mEl.classList.contains("open"))};
+d.addEventListener("click",function(e){if(!e.target.closest("#menu"))menu(false)});
+$("#reboot").onclick=function(){try{sessionStorage.removeItem("booted")}catch(e){}location.reload()};
+
+/* clock */
+function tick(){var n=new Date();$("#clock").textContent=n.toLocaleTimeString([],{hour:"2-digit",minute:"2-digit",second:"2-digit"})}
+tick();setInterval(tick,1000);
+
+/* terminal */
+var out=$("#out"),cmd=$("#cmd"),hist=[],hi=0;
+var GH="https://github.com/gininipushes",LI="https://www.linkedin.com/in/pratyushacharya1/";
+function p(s){out.textContent+=s+"\n";var b=out.parentNode;b.scrollTop=b.scrollHeight}
+function go(u){window.open(u,"_blank","noopener")}
+var C={
+ help:function(){p("commands:\n  help  whoami  ls  about  research  projects  skills\n  resume  github  linkedin  contact  clear\n  theme green|amber|cyan")},
+ whoami:function(){p("pratyush acharya // b.tech cyber physical systems, MIT Manipal\nembedded systems, CPS security, sensing, robotics\nopen to internships, research assistant & research intern roles")},
+ ls:function(){p("about.txt  research.doc  projects.exe  skills.sys  resume.pdf  contact.lnk")},
+ about:function(){p("Pratyush Acharya\nB.Tech CPS, School of Electrical Engineering, MIT (MAHE), Manipal\nJul 2025 to Jul 2029 (expected)\nClass Representative, SoEE (since Aug 2026)\nHostel Block Representative (since Sep 2026)\nCodeforces: ginini | photography & videography");openWin("about")},
+ research:function(){p("[manuscript] Stealthy False-Data Injection on UAV Battery Sensing and a\n  Powertrain-Consistency Detector for Medical Delivery Drones\n  -> caught every phantom & hidden-drain attack, 0.34% false alarms\n[manuscript] Bilinear Actuation Watermarking: Authenticating Low-Cost\n  PM2.5 Sensors in Smart Air Purifiers with a Secret Fan-Speed Challenge\n  -> 90-93% replay detection within 6 h, all stuck-at attacks");openWin("research")},
+ projects:function(){p("rubiks-cube-solver   C++/WASM   Kociemba, <=20 moves, median 54 ms\nwhich-way            Java       offline campus compass + BLE mesh\npuriswitch           ESP32      smart air purifier switch\nwater-level-sensor   ESP32/C++  contactless capacitive sensing");openWin("projects")},
+ skills:function(){p("lang : C, C++, Java, Python\nhw   : ESP32, microcontrollers, sensors, PCB (KiCAD, Proteus)\nrobo : ROS, ArduPilot, MATLAB, Simulink\ntools: Linux, Git, Tinkercad, WebAssembly, Android");openWin("skills")},
+ resume:function(){p("opening resume.pdf ...");go("resume.pdf")},
+ github:function(){p("opening "+GH+" ...");go(GH)},
+ linkedin:function(){p("opening "+LI+" ...");go(LI)},
+ contact:function(){p("email    pratyushacharya186@gmail.com\ngithub   "+GH+"\nlinkedin "+LI)},
+ clear:function(){out.textContent=""},
+ theme:function(a){if(["green","amber","cyan"].indexOf(a)<0){p("usage: theme green|amber|cyan");return}if(a==="green")root.removeAttribute("data-theme");else root.setAttribute("data-theme",a);try{localStorage.setItem("theme",a)}catch(e){}p("phosphor set to "+a)}
+};
+try{var th=localStorage.getItem("theme");if(th&&th!=="green")root.setAttribute("data-theme",th)}catch(e){}
+cmd.addEventListener("keydown",function(e){
+ if(e.key==="ArrowUp"){if(hi>0)cmd.value=hist[--hi];e.preventDefault();return}
+ if(e.key==="ArrowDown"){hi=Math.min(hist.length,hi+1);cmd.value=hist[hi]||"";e.preventDefault();return}
+ if(e.key!=="Enter")return;
+ var v=cmd.value.trim();cmd.value="";p("guest@pratyush:~$ "+v);if(!v)return;hist.push(v);hi=hist.length;
+ var lv=v.toLowerCase().replace(/\s+/g," ");
+ if(lv==="sudo hire pratyush"){p("[sudo] password for guest: ********\naccess granted.\n>>> initiating recruitment protocol ...\n>>> drafting email to pratyushacharya186@gmail.com\nhe's open to internships, research assistant & research intern roles. good call.");setTimeout(function(){location.href="mailto:pratyushacharya186@gmail.com?subject=Research%20role"},900);return}
+ if(lv.indexOf("sudo")===0){p("guest is not in the sudoers file. this incident will be reported.");return}
+ var parts=lv.split(" "),f=C[parts[0]];
+ if(f)f(parts[1]);else p(parts[0]+": command not found. try `help`");
+});
+$("#term .body").addEventListener("click",function(){if(!getSelection().toString())cmd.focus()});
+
+/* photo glitch on hover */
+var ph=$("#xPh"),gT=0;
+ph.addEventListener("pointerenter",function(){if(RM||ph.classList.contains("glitch"))return;ph.classList.add("glitch");clearTimeout(gT);gT=setTimeout(function(){ph.classList.remove("glitch")},460)});
+
+/* desktop fx: synthwave grid, wireframe sun + mountains, stars, particles, globe */
+(function(){
+ var cv=$("#deskFx"),cx=cv&&cv.getContext("2d");if(!cx)return;
+ var W=0,H=0,dpr,col,bgc,stars=[],parts=[],mtn=[],t=0,raf=0,last=0,run=false;
+ function theme(){col=cssv("--fg","#39ff7a");bgc=cssv("--bg","#050806")}
+ function build(){
+  var hz=H*.6;stars=[];parts=[];mtn=[];
+  for(var i=0;i<160;i++)stars.push({x:Math.random()*W,y:Math.random()*hz*.96,s:Math.random(),p:Math.random()*6.3});
+  for(i=0;i<46;i++)parts.push({x:Math.random()*W,y:Math.random()*H,vx:(Math.random()-.5)*.25,vy:-.08-Math.random()*.22,s:Math.random()});
+  [1,.62].forEach(function(hgt,k){var n=16+k*6,pts=[];for(var j=0;j<n;j++)pts.push([j*W/(n-1),hz-(j%2?.25+Math.random()*.75:Math.random()*.25)*H*.13*hgt]);pts[0][1]=pts[n-1][1]=hz;mtn.push(pts)});
+ }
+ function size(){var r=cv.parentNode;W=r.clientWidth;H=r.clientHeight;if(!W||!H)return;dpr=Math.min(devicePixelRatio||1,1.5);cv.width=W*dpr;cv.height=H*dpr;cx.setTransform(dpr,0,0,dpr,0,0);build()}
+ function line(x1,y1,x2,y2){cx.moveTo(x1,y1);cx.lineTo(x2,y2)}
+ function draw(){
+  if(!W)return;
+  var hz=H*.6,vx=W*.58,i;
+  cx.clearRect(0,0,W,H);cx.strokeStyle=col;cx.fillStyle=col;cx.lineWidth=1;
+  /* stars */
+  for(i=0;i<stars.length;i++){var s=stars[i];s.x-=.05+.12*s.s;if(s.x<0)s.x+=W;cx.globalAlpha=(.1+.3*s.s)*(.65+.35*Math.sin(t*.05+s.p));var z=s.s>.85?2:1;cx.fillRect(s.x,s.y,z,z)}
+  /* wireframe sun */
+  var sr=Math.min(W,H)*.2;cx.save();cx.beginPath();cx.arc(vx,hz,sr,Math.PI,0);cx.clip();
+  cx.globalAlpha=.06;cx.fillRect(vx-sr,hz-sr,sr*2,sr);
+  var st=sr/11,off=(t*.25)%st;cx.globalAlpha=.3;cx.beginPath();
+  for(var y=hz-sr+off;y<hz;y+=st)line(vx-sr,y,vx+sr,y);
+  cx.stroke();cx.restore();
+  cx.globalAlpha=.42;cx.beginPath();cx.arc(vx,hz,sr,Math.PI,0);cx.stroke();
+  /* mountains */
+  mtn.forEach(function(pts,k){cx.globalAlpha=1;cx.fillStyle=bgc;cx.beginPath();cx.moveTo(0,hz);pts.forEach(function(p){cx.lineTo(p[0],p[1])});cx.lineTo(W,hz);cx.closePath();cx.globalAlpha=k?.85:.7;cx.fill();
+   cx.globalAlpha=k?.32:.22;cx.beginPath();pts.forEach(function(p,j){j?cx.lineTo(p[0],p[1]):cx.moveTo(p[0],p[1])});cx.stroke();
+   cx.globalAlpha=k?.12:.08;cx.beginPath();pts.forEach(function(p,j){if(j%2)line(p[0],p[1],p[0]+(j%4===1?-1:1)*W*.02,hz)});cx.stroke()});
+  cx.fillStyle=col;
+  /* horizon */
+  cx.globalAlpha=.55;cx.beginPath();line(0,hz,W,hz);cx.stroke();
+  /* grid floor */
+  cx.globalAlpha=.2;cx.beginPath();var sp=W/9;
+  for(i=-14;i<=14;i++)line(vx,hz,vx+i*sp*1.6,H+H*.4);
+  cx.stroke();
+  var ph=(t*.012)%1,fh=H-hz;
+  for(i=0;i<34;i++){var zz=i+1-ph;if(zz<.45)continue;var yy=hz+fh*.45/zz;if(yy>H)continue;cx.globalAlpha=.3*Math.min(1,(yy-hz)/fh*3.5);cx.beginPath();line(0,yy,W,yy);cx.stroke()}
+  /* globe */
+  var R=Math.min(W,H)*.12,gx=W-R*1.9,gy=Math.max(R*1.6,H*.22),ry=t*.006,tl=.38;
+  function seg(a,b){var p=rot(a,tl,ry),q=rot(b,tl,ry);cx.globalAlpha=p[2]+q[2]<0?.36:.12;cx.beginPath();line(gx+p[0]*R,gy+p[1]*R,gx+q[0]*R,gy+q[1]*R);cx.stroke()}
+  var nS=28,la,lo,k;
+  for(la=-60;la<=60;la+=30){var c=Math.cos(la*Math.PI/180),sy=Math.sin(la*Math.PI/180);for(k=0;k<nS;k++){var a1=k/nS*6.283,a2=(k+1)/nS*6.283;seg([c*Math.cos(a1),sy,c*Math.sin(a1)],[c*Math.cos(a2),sy,c*Math.sin(a2)])}}
+  for(lo=0;lo<180;lo+=30){var L=lo*Math.PI/180;for(k=0;k<nS;k++){var b1=k/nS*6.283,b2=(k+1)/nS*6.283;seg([Math.cos(b1)*Math.cos(L),Math.sin(b1),Math.cos(b1)*Math.sin(L)],[Math.cos(b2)*Math.cos(L),Math.sin(b2),Math.cos(b2)*Math.sin(L)])}}
+  /* drifting particles */
+  for(i=0;i<parts.length;i++){var p=parts[i];p.x+=p.vx;p.y+=p.vy;if(p.y<-4){p.y=H+4;p.x=Math.random()*W}if(p.x<-4)p.x=W+4;else if(p.x>W+4)p.x=-4;cx.globalAlpha=.12+.25*p.s;cx.fillRect(p.x,p.y,1.5,1.5)}
+  cx.globalAlpha=1;
+ }
+ function loop(ts){raf=requestAnimationFrame(loop);if(ts-last<33)return;last=ts;t++;draw()}
+ function ctl(){
+  if(phone.matches){if(run){run=false;cancelAnimationFrame(raf)}return}
+  var anim=!RM&&!d.hidden&&!root.classList.contains("nocrt");
+  if(anim&&!run){run=true;last=0;raf=requestAnimationFrame(loop)}
+  else if(!anim){if(run){run=false;cancelAnimationFrame(raf)}draw()}
+ }
+ theme();size();draw();ctl();
+ d.addEventListener("visibilitychange",ctl);
+ if(phone.addEventListener)phone.addEventListener("change",function(){size();ctl()});
+ addEventListener("resize",function(){size();if(!run)draw()});
+ new MutationObserver(function(){theme();ctl();if(!run)draw()}).observe(root,{attributes:true,attributeFilter:["data-theme","class"]});
+})();
+})();
+</script>
+</body>
+</html>
