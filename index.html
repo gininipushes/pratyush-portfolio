@@ -158,6 +158,52 @@ html.nocrt .x-ph::after{display:none}
  .ticker span{animation:none;padding-left:12px}
  #boot{transition:none}
 }
+/* walkman */
+#walkman .tb .px{order:-2}
+#walkman .tb .x-mn{order:-1}
+.x-wm{display:grid;gap:12px;justify-items:center;outline:none}
+.x-lcd{width:100%;background:var(--fg);color:var(--bg);text-shadow:none;padding:8px 10px;border:3px solid #1a1a1a;border-radius:4px;box-shadow:inset 0 0 14px rgba(0,0,0,.45),0 0 12px var(--glow);font-size:20px;line-height:1.15;min-height:124px}
+.x-lcd b{display:block;font-weight:normal;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.x-row{display:flex;justify-content:space-between;gap:8px}
+.x-list{display:none;list-style:none;margin:0;padding:0}
+.x-list li{padding:0 4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;cursor:pointer}
+.x-list li.on{background:var(--bg);color:var(--fg)}
+.x-lcd.menu .x-list{display:block}
+.x-lcd.menu .x-info{display:none}
+.x-bar{position:relative;height:12px;margin-top:6px;border:2px solid var(--bg);cursor:pointer}
+.x-bar i{position:absolute;left:0;top:0;bottom:0;width:0;background:var(--bg)}
+.x-cas{position:relative;width:150px;height:56px;border:2px solid var(--fg);border-radius:6px;background:rgba(0,0,0,.5);box-shadow:0 0 10px var(--glow)}
+.x-cas::before{content:"";position:absolute;left:28px;right:28px;top:14px;height:24px;border:1px solid var(--dim);border-radius:12px}
+.x-reel{position:absolute;top:14px;left:30px;width:24px;height:24px;border-radius:50%;border:2px solid var(--fg);background:repeating-conic-gradient(var(--fg) 0 20deg,transparent 20deg 60deg);animation:x-reel 1.6s linear infinite paused}
+.x-reel+.x-reel{left:auto;right:30px}
+#walkman.playing .x-reel{animation-play-state:running}
+@keyframes x-reel{to{transform:rotate(360deg)}}
+.x-wheel{position:relative;width:180px;height:180px;border-radius:50%;background:radial-gradient(circle at 40% 35%,#dcdcdc,var(--chrome) 60%,#8a8a8a);border:2px solid;border-color:var(--bevel-l) var(--bevel-d) var(--bevel-d) var(--bevel-l);user-select:none;text-shadow:none}
+@media (pointer:fine){.x-wheel{touch-action:none}}
+.x-wheel button{all:unset;position:absolute;display:grid;place-items:center;width:48px;height:44px;color:#111;background:var(--chrome);border-radius:10px;font:12px "Press Start 2P",monospace;cursor:pointer}
+.x-wheel button:focus-visible{outline:2px dashed var(--mg)}
+.x-wheel [data-a=menu]{top:2px;left:calc(50% - 24px)}
+.x-wheel [data-a=play]{bottom:2px;left:calc(50% - 24px)}
+.x-wheel [data-a=prev]{left:2px;top:calc(50% - 22px)}
+.x-wheel [data-a=next]{right:2px;top:calc(50% - 22px)}
+.x-wheel [data-a=ok]{left:calc(50% - 30px);top:calc(50% - 30px);width:60px;height:60px;border-radius:50%;background:var(--bg);border:2px solid var(--fg);box-sizing:border-box;box-shadow:0 0 10px var(--glow)}
+.x-cr{margin:0!important;font-size:18px;text-align:center}
+.x-np{display:none!important;max-width:220px}
+.x-np.on{display:flex!important}
+.x-np span{overflow:hidden;white-space:nowrap;text-overflow:ellipsis;font-size:10px}
+.x-eq{display:flex;align-items:flex-end;gap:2px;height:14px;flex:none}
+.x-eq i{width:3px;height:100%;background:#000080;transform-origin:bottom;animation:x-eq .8s ease-in-out infinite alternate}
+.x-eq i:nth-child(2){animation-delay:-.3s}.x-eq i:nth-child(3){animation-delay:-.55s}
+@keyframes x-eq{from{transform:scaleY(.25)}to{transform:scaleY(1)}}
+@media (max-width:759px){
+ #walkman .x-wm{grid-template-columns:minmax(0,1fr) 144px;align-items:center}
+ .x-lcd,.x-cr{grid-column:1/-1}
+ .x-cas{width:100%;max-width:150px}
+ .x-wheel{width:144px;height:144px}
+ .x-wheel [data-a=menu]{top:0}.x-wheel [data-a=play]{bottom:0}.x-wheel [data-a=prev]{left:0}.x-wheel [data-a=next]{right:0}
+ .x-wheel [data-a=ok]{width:44px;height:44px;left:calc(50% - 22px);top:calc(50% - 22px)}
+}
+@media (prefers-reduced-motion:reduce){.x-reel,.x-eq i{animation:none!important}}
 </style>
 </head>
 <body>
@@ -190,6 +236,7 @@ html.nocrt .x-ph::after{display:none}
    <button class="icon" data-open="skills"><i>⚙</i>Skills</button>
    <button class="icon" data-open="term"><i>&gt;_</i>Terminal</button>
    <button class="icon" data-open="resume"><i>¶</i>Resume</button>
+   <button class="icon" data-open="walkman"><i>♫</i>Walkman</button>
   </div>
 
   <section class="win" id="about" style="left:140px;top:20px;width:min(720px,calc(100vw - 160px))" aria-labelledby="h-about">
@@ -316,6 +363,29 @@ Type `help` for a list of commands.
     <div class="prompt"><label for="cmd">guest@pratyush:~$</label><input id="cmd" autocomplete="off" spellcheck="false" autocapitalize="off" /></div>
    </div>
   </section>
+
+  <section class="win" id="walkman" style="left:460px;top:30px;width:300px" aria-labelledby="h-wm">
+   <div class="tb"><span class="px" id="h-wm">WALKMAN.EXE</span><button class="x" aria-label="Close">×</button><button class="x x-mn" aria-label="Minimise">_</button></div>
+   <div class="body">
+    <div class="x-wm" id="wmBox" tabindex="0" aria-label="Walkman. Space plays or pauses, arrows skip, plus and minus set volume">
+     <div class="x-lcd" id="wmLcd" aria-live="polite">
+      <div class="x-info"><b id="wmT">2 AM Debug Loop</b><div class="x-row"><span id="wmA">Open Lo-Fi</span><span id="wmN">1/5</span></div><div class="x-row"><span id="wmS">■ STOP</span><span id="wmTime">0:00 / --:--</span></div></div>
+      <ul class="x-list" id="wmList"></ul>
+      <div class="x-bar" id="wmBar" role="slider" aria-label="Seek" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><i id="wmFill"></i></div>
+     </div>
+     <div class="x-cas" aria-hidden="true"><span class="x-reel"></span><span class="x-reel"></span></div>
+     <div class="x-wheel" id="wmWheel">
+      <button type="button" data-a="menu" aria-label="Menu">MENU</button>
+      <button type="button" data-a="prev" aria-label="Previous">|&lt;&lt;</button>
+      <button type="button" data-a="next" aria-label="Next">&gt;&gt;|</button>
+      <button type="button" data-a="play" id="wmPlay" aria-label="Play">▶❚❚</button>
+      <button type="button" data-a="ok" aria-label="Select"></button>
+     </div>
+     <p class="x-cr">Music: <a href="https://github.com/btahir/open-lofi" target="_blank" rel="noopener">Open Lo-Fi (CC0) by btahir</a></p>
+     <audio id="wmAu" preload="none"><source src="2-am-debug-loop.mp3" type="audio/mpeg"><source src="cursor-after-midnight.mp3" type="audio/mpeg"><source src="continue-screen-dreams.mp3" type="audio/mpeg"><source src="antenna-after-midnight.mp3" type="audio/mpeg"><source src="rain-off-the-neon-signs.mp3" type="audio/mpeg"></audio>
+    </div>
+   </div>
+  </section>
  </main>
 
  <div id="menu" role="menu">
@@ -325,6 +395,7 @@ Type `help` for a list of commands.
   <button data-open="skills">Skills</button>
   <button data-open="term">Terminal</button>
   <button data-open="resume">Resume</button>
+  <button data-open="walkman">Walkman</button>
   <hr>
   <a href="mailto:pratyushacharya186@gmail.com">Email</a>
   <button id="reboot">Reboot…</button>
@@ -334,6 +405,7 @@ Type `help` for a list of commands.
   <a class="btn98" href="https://github.com/gininipushes" target="_blank" rel="noopener">GitHub</a>
   <a class="btn98" href="https://www.linkedin.com/in/pratyushacharya1/" target="_blank" rel="noopener">LinkedIn</a>
   <a class="btn98" href="resume.pdf" target="_blank" rel="noopener">Resume</a>
+  <button class="btn98 x-np" id="wmNp" type="button" data-open="walkman" aria-label="Now playing, open Walkman"><span class="x-eq" aria-hidden="true"><i></i><i></i><i></i></span><span id="wmNpT">2 AM Debug Loop</span></button>
   <span class="sp"></span>
   <button class="btn98 crttog" type="button">CRT:ON</button>
   <span class="clock" id="clock">--:--</span>
@@ -431,7 +503,12 @@ var GH="https://github.com/gininipushes",LI="https://www.linkedin.com/in/pratyus
 function p(s){out.textContent+=s+"\n";var b=out.parentNode;b.scrollTop=b.scrollHeight}
 function go(u){window.open(u,"_blank","noopener")}
 var C={
- help:function(){p("commands:\n  help  whoami  ls  about  research  projects  skills\n  resume  github  linkedin  contact  clear\n  theme green|amber|cyan")},
+ help:function(){p("commands:\n  help  whoami  ls  about  research  projects  skills\n  resume  github  linkedin  contact  clear\n  theme green|amber|cyan\n  music  play  pause  next  prev")},
+ music:function(){p("launching WALKMAN.EXE ...");openWin("walkman")},
+ play:function(){window.WM.play();p("♪ playing: "+window.WM.now())},
+ pause:function(){window.WM.pause();p("paused.")},
+ next:function(){window.WM.next(true);p("♪ playing: "+window.WM.now())},
+ prev:function(){window.WM.prev(true);p("♪ playing: "+window.WM.now())},
  whoami:function(){p("pratyush acharya // b.tech cyber physical systems, MIT Manipal\nembedded systems, CPS security, sensing, robotics\nopen to internships, research assistant & research intern roles")},
  ls:function(){p("about.txt  research.doc  projects.exe  skills.sys  resume.pdf  contact.lnk")},
  about:function(){p("Pratyush Acharya\nB.Tech CPS, School of Electrical Engineering, MIT (MAHE), Manipal\nJul 2025 to Jul 2029 (expected)\nClass Representative, SoEE (since Aug 2026)\nHostel Block Representative (since Sep 2026)\nCodeforces: ginini | photography & videography");openWin("about")},
@@ -525,6 +602,57 @@ ph.addEventListener("pointerenter",function(){if(RM||ph.classList.contains("glit
  addEventListener("resize",function(){size();if(!run)draw()});
  new MutationObserver(function(){theme();ctl();if(!run)draw()}).observe(root,{attributes:true,attributeFilter:["data-theme","class"]});
 })();
+})();
+</script>
+<script>
+(function(){
+var d=document,w=d.getElementById("walkman");if(!w)return;
+function $(id){return d.getElementById(id)}
+var au=$("wmAu"),S=[].map.call(au.querySelectorAll("source"),function(s){return s.src}),lcd=$("wmLcd"),list=$("wmList"),bar=$("wmBar"),wheel=$("wmWheel"),box=$("wmBox");
+var T=["2 AM Debug Loop","Cursor After Midnight","Continue Screen Dreams","Antenna After Midnight","Rain Off the Neon Signs"];
+var i=0,hl=0,loaded=-1,vt=0,drag=false;
+function f(s){if(!isFinite(s))return"--:--";s=Math.floor(s);return Math.floor(s/60)+":"+("0"+s%60).slice(-2)}
+list.innerHTML=T.map(function(t,k){return'<li data-k="'+k+'">'+(k+1)+". "+t+"</li>"}).join("");
+function menuOn(){return lcd.classList.contains("menu")}
+function time(){var c=au.currentTime||0,D=au.duration,pc=D?c/D*100:0;$("wmTime").textContent=f(c)+" / "+f(D);$("wmFill").style.width=pc+"%";bar.setAttribute("aria-valuenow",Math.round(pc))}
+function ui(){$("wmT").textContent=T[i];$("wmN").textContent=(i+1)+"/5";$("wmNpT").textContent=T[i];[].forEach.call(list.children,function(li,k){li.classList.toggle("on",k===hl)});time()}
+function load(k){i=(k+5)%5;hl=i;au.src=S[i];loaded=i;ui()}
+function play(){if(loaded<0)load(i);var p=au.play();if(p&&p.catch)p.catch(function(){})}
+function pause(){au.pause()}
+function toggle(){au.paused?play():pause()}
+function go(k,force){var was=force||!au.paused;load(k);if(was)play()}
+function next(force){go(i+1,force)}
+function prev(force){if(au.currentTime>3){au.currentTime=0;if(force)play()}else go(i-1,force)}
+function vol(dv){au.volume=Math.max(0,Math.min(1,Math.round((au.volume+dv)*100)/100));$("wmA").textContent="VOL "+Math.round(au.volume*100)+"%";clearTimeout(vt);vt=setTimeout(function(){$("wmA").textContent="Open Lo-Fi"},1200)}
+function move(dk){hl=(hl+dk+5)%5;ui()}
+function st(){var on=!au.paused;w.classList.toggle("playing",on);$("wmNp").classList.toggle("on",on);$("wmS").textContent=on?"▶ PLAY":(loaded<0?"■ STOP":"❚❚ PAUSE");$("wmPlay").setAttribute("aria-label",on?"Pause":"Play")}
+au.addEventListener("play",st);au.addEventListener("pause",st);
+au.addEventListener("timeupdate",time);au.addEventListener("loadedmetadata",time);
+au.addEventListener("ended",function(){load(i+1);play()});
+var A={menu:function(){lcd.classList.toggle("menu");hl=i;ui()},prev:function(){prev()},next:function(){next()},play:toggle,
+ ok:function(){if(!menuOn())return toggle();lcd.classList.remove("menu");if(hl!==i)load(hl);play()}};
+wheel.addEventListener("click",function(e){var b=e.target.closest("[data-a]");if(b&&!drag)A[b.dataset.a]()});
+list.addEventListener("click",function(e){var li=e.target.closest("li");if(li){hl=+li.dataset.k;A.ok()}});
+bar.addEventListener("click",function(e){var r=bar.getBoundingClientRect();if(au.duration)au.currentTime=Math.max(0,Math.min(1,(e.clientX-r.left)/r.width))*au.duration});
+wheel.addEventListener("pointerdown",function(e){
+ if(e.pointerType==="touch"||e.target.closest("[data-a=ok]"))return;
+ var r=wheel.getBoundingClientRect(),cx=r.left+r.width/2,cy=r.top+r.height/2,acc=0,step=Math.PI/8;
+ function ang(ev){return Math.atan2(ev.clientY-cy,ev.clientX-cx)}
+ var la=ang(e);drag=false;
+ function mv(ev){var a=ang(ev),da=a-la;if(da>Math.PI)da-=2*Math.PI;if(da<-Math.PI)da+=2*Math.PI;la=a;acc+=da;while(Math.abs(acc)>=step){var s=acc>0?1:-1;acc-=s*step;drag=true;menuOn()?move(s):vol(s*.05)}}
+ function up(){removeEventListener("pointermove",mv);removeEventListener("pointerup",up);setTimeout(function(){drag=false},0)}
+ addEventListener("pointermove",mv);addEventListener("pointerup",up)});
+w.addEventListener("pointerdown",function(e){if(!e.target.closest("button,a,.tb"))box.focus({preventScroll:true})});
+w.addEventListener("keydown",function(e){
+ if(e.target.closest(".tb"))return;var k=e.key,m=menuOn();
+ if(k===" ")toggle();else if(k==="ArrowRight")next();else if(k==="ArrowLeft")prev();
+ else if(k==="ArrowUp")m?move(-1):vol(.05);else if(k==="ArrowDown")m?move(1):vol(-.05);
+ else if(k==="+"||k==="=")vol(.05);else if(k==="-"||k==="_")vol(-.05);
+ else if(k==="Enter"&&m&&!e.target.closest("button,a"))A.ok();else return;
+ e.preventDefault()});
+w.querySelector(".x-mn").onclick=function(e){e.stopPropagation();w.classList.remove("open")};
+window.WM={play:play,pause:pause,next:next,prev:prev,now:function(){return T[i]}};
+ui();
 })();
 </script>
 </body>
